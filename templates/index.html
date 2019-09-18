@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Sample for Parrot" />
+    <meta name="description" content="Sample for Parrot" />
+    <meta name="language" content="en" />
+    <title>Sample for Parrot</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/layoutit.css" rel="stylesheet">
+    <link href="../static/css/default.css" rel="stylesheet">
+    <link href="../static/css/base.css" rel="stylesheet">
+    <link href="../static/css/list.css" rel="stylesheet">
+    <link href="../static/css/content.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../static/js/jquery.htmlClean.js"></script>
+    <script type="text/javascript" src="../static/js/scripts.min.js"></script>
+</head>
+
+<body>
+    <div class="subTitle">
+        <h3>Sample示例站点 for Parrot</h3>
+        <p>本站点仅用于Http请求的Demo演示，数据均保存在运行内存中，重启服务则重置</p>
+    </div>
+
+    <iframe name="hiddenIframe" hidden></iframe>
+
+    <div class="col-md-4 column" style="height: 360px;">
+        <h3>用户的行为</h3>
+        <p>默认的已注册用户为：sample / sample</p>
+        <div class="form-group"></div>
+        <div class="tabbable" id="tabs-user">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a rel="nofollow" href="#panel-register" data-toggle="tab">注册</a>
+                </li>
+                <li>
+                    <a rel="nofollow" href="#panel-unregister" data-toggle="tab">注销</a>
+                </li>
+                <li class="active">
+                    <a rel="nofollow" href="#panel-login" data-toggle="tab">登录</a>
+                </li>
+                <li>
+                    <a rel="nofollow" href="#panel-logout" data-toggle="tab">登出</a>
+                </li>
+            </ul>
+
+            <div class="form-group"></div>
+
+            <div class="tab-content">
+                <div class="tab-pane" id="panel-register">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group">
+                            <label for="r_inputUsername">用户名：</label>
+                            <input type="text" class="form-control" id="r_inputUsername" name="r_username"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="r_inputPassword">密码：</label>
+                            <input type="password" class="form-control" id="r_inputPassword" name="r_password"/>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-default" id="user-register"
+                                    onclick="userRegister(r_username.value, r_password.value)">提交</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="panel-unregister">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group"></div>
+                        <div>
+                            <button type="submit" class="btn btn-default" id="user-unregister"
+                                    onclick="userUnregister()">提交</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane active" id="panel-login">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group">
+                            <label for="l_inputUsername">用户名：</label>
+                            <input type="text" class="form-control" id="l_inputUsername" name="l_username" value="sample"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="l_inputPassword">密码：</label>
+                            <input type="password" class="form-control" id="l_inputPassword" name="l_password" value="sample" />
+                        </div>
+                        <div>
+                             <button type="submit" class="btn btn-default" id="user-login"
+                                     onclick="userLogin(l_username.value, l_password.value)">登录</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="panel-logout">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group"></div>
+                        <div>
+                             <button type="submit" class="btn btn-default" id="user-logout"
+                                     onclick="userLogout()">登出</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 column" style="height: 360px;">
+        <h3>展示区域</h3>
+        <p>接口的请求和响应信息会呈现在此</p>
+        <div class="form-group"></div>
+        <blockquote style="overflow: auto; height: 250px">
+            <pre style="height: auto; " id="api-response">
+
+            </pre>
+        </blockquote>
+
+    </div>
+    <div class="col-md-4 column" style="height: 360px;">
+        <h3>用户的兴趣</h3>
+        <p>操作之前，请先进行登录</p>
+        <div class="form-group"></div>
+        <div class="tabbable" id="tabs-hobby">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a rel="nofollow" href="#panel-list" data-toggle="tab">列表</a>
+                </li>
+                <li>
+                    <a rel="nofollow" href="#panel-detail" data-toggle="tab">详情</a>
+                </li>
+                <li>
+                    <a rel="nofollow" href="#panel-add" data-toggle="tab">添加</a>
+                </li>
+                <li>
+                    <a rel="nofollow" href="#panel-remove" data-toggle="tab">删除</a>
+                </li>
+                <li>
+                    <a rel="nofollow" href="#panel-suggest" data-toggle="tab">今日建议</a>
+                </li>
+            </ul>
+            <div class="form-group"></div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="panel-list">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group">
+                             <p></p>
+                        </div>
+                        <div>
+                             <button type="submit" class="btn btn-default" id="hobby-list"
+                                     onclick="hobbyList()">查询</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="panel-detail">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group">
+                            <label for="hobbyName0">兴趣名称：</label>
+                            <input type="text" class="form-control" id="hobbyName0" name="hobby_name0" value="reading" />
+                        </div>
+                        <div>
+                             <button type="submit" class="btn btn-default" id="hobby-detail"
+                                     onclick="hobbyDetail(hobby_name0.value)">查询</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="panel-add">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group">
+                            <label for="hobbyName1">兴趣名称：</label>
+                            <input type="text" class="form-control" id="hobbyName1" name="hobby_name1" value="reading"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="hobbyFrequency1">参与频率：</label>
+                            <input type="text" class="form-control" id="hobbyFrequency1" name="hobby_frequency1" value="1 book per month"/>
+                        </div>
+                        <div>
+                             <button type="submit" class="btn btn-default" id="hobby-add"
+                                     onclick="hobbyAdd(hobby_name1.value, hobby_frequency1.value)">添加</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="panel-remove">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group">
+                            <label for="hobbyName2">兴趣名称：</label>
+                            <input type="text" class="form-control" id="hobbyName2" name="hobby_name2" />
+                        </div>
+                        <div>
+                             <button type="submit" class="btn btn-default" id="hobby-remove"
+                                     onclick="hobbyRemove(hobby_name2.value)">删除</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="panel-suggest">
+                    <form role="form" class="nofollow" target="hiddenIframe">
+                        <div class="form-group"></div>
+                        <div>
+                             <button type="submit" class="btn btn-default" id="hobby-suggest"
+                                     onclick="hobbySuggest()">试试手气</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="copyRight">
+            Copyright ©2018-2028 <a>Sample Project by Idleman</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // var base_url = window.location.href;
+        var base_url = "{{base_url}}";
+
+        function userRegister(username, password) {
+            var this_url = base_url + 'register';
+            var this_desc = "注册新用户";
+            $.ajax({
+                url: this_url,
+                data: {'username': username, 'password': password},
+                type: 'POST',
+                success: function (response, status, xhr) {
+                    displayResponse("POST " + this_url, this_desc, xhr);
+                }
+            });
+        }
+
+        function userUnregister() {
+            var this_url = base_url + 'unregister';
+            var this_desc = "注销当前登录用户";
+            $.ajax({
+                url: this_url,
+                data: {},
+                type: 'POST',
+                beforeSend: function(XMLHTTPRequest){
+                    XMLHTTPRequest.setRequestHeader("token", getToken());
+                },
+                success: function (response, status, xhr) {
+                    displayResponse("POST " + this_url, this_desc, xhr);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+            token = "";
+        }
+
+        function userLogin(username, password) {
+            var this_url = base_url + 'login';
+            var this_desc = "用户登录";
+            $.ajax({
+                url: this_url,
+                data: {'username': username, 'password': password},
+                type: 'POST',
+                success: function (response, status, xhr) {
+                    displayResponse("POST " + this_url, this_desc, xhr);
+                }
+            });
+        }
+
+        function userLogout() {
+            var this_url = base_url + 'logout';
+            var this_desc = "用户登出";
+            $.ajax({
+                url: this_url,
+                data: {},
+                type: 'POST',
+                beforeSend: function(XMLHTTPRequest){
+                    XMLHTTPRequest.setRequestHeader("token", getToken());
+                },
+                success: function (response, status, xhr) {
+                    displayResponse("POST " + this_url, this_desc, xhr);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+            token = "";
+        }
+
+        function hobbyList() {
+            var this_url = base_url + 'hobby_list';
+            var this_desc = "我的兴趣列表";
+            $.ajax({
+                url: this_url,
+                data: {},
+                type: 'GET',
+                beforeSend: function(XMLHTTPRequest){
+                    XMLHTTPRequest.setRequestHeader("token", getToken());
+                },
+                success: function (response, status, xhr) {
+                    displayResponse("GET " + this_url, this_desc, xhr);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function hobbyDetail(name) {
+            var this_url = base_url + 'hobby_detail';
+            var this_desc = "我的兴趣详情";
+            $.ajax({
+                url: this_url,
+                data: {'name': name},
+                type: 'GET',
+                beforeSend: function(XMLHTTPRequest){
+                    XMLHTTPRequest.setRequestHeader("token", getToken());
+                },
+                success: function (response, status, xhr) {
+                    displayResponse("GET " + this_url, this_desc, xhr);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function hobbyAdd(name, frequency) {
+            var this_url = base_url + 'hobby_add';
+            var this_desc = "添加一个兴趣";
+            $.ajax({
+                url: this_url,
+                data: {'name': name, 'frequency': frequency},
+                type: 'POST',
+                beforeSend: function(XMLHTTPRequest){
+                    XMLHTTPRequest.setRequestHeader("token", getToken());
+                },
+                success: function (response, status, xhr) {
+                    displayResponse("POST " + this_url, this_desc, xhr);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function hobbyRemove(name) {
+            var this_url = base_url + 'hobby_remove';
+            var this_desc = "删除一个兴趣";
+            $.ajax({
+                url: this_url,
+                data: {'name': name},
+                type: 'POST',
+                beforeSend: function(XMLHTTPRequest){
+                    XMLHTTPRequest.setRequestHeader("token", getToken());
+                },
+                success: function (response, status, xhr) {
+                    displayResponse("POST " + this_url, this_desc, xhr);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function hobbySuggest() {
+            var this_url = base_url + 'hobby_suggest';
+            var this_desc = "今日兴趣推荐";
+
+            $.ajax({
+                url: this_url,
+                data: {'today': getToday()},
+                type: 'GET',
+                beforeSend: function(XMLHTTPRequest){
+                    XMLHTTPRequest.setRequestHeader("token", getToken());
+                },
+                success: function (response, status, xhr) {
+                    displayResponse("GET " + this_url, this_desc, xhr);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function displayResponse(url, desc, xhr) {
+            $("#api-response").empty();
+            $("#api-response").append(desc + "\n\n");
+            $("#api-response").append("Request: " + url + "\n\n");
+            $("#api-response").append("Status Code: " + xhr.status + "\n\n");
+            $("#api-response").append("Response Text:\n" + xhr.responseText + "\n");
+            $("#api-response").append("Response Headers:\n" + xhr.getAllResponseHeaders());
+        }
+
+        function doRefresh() {
+            location.reload();
+        }
+
+        function getToday() {
+            var date = new Date();
+            var nowMonth = date.getMonth() + 1;
+            var nowDate = date.getDate();
+            var separator = "-";
+
+            if (nowMonth >= 1 && nowMonth <= 9) {
+               nowMonth = "0" + nowMonth;
+            }
+
+            if (nowDate >= 0 && nowDate <= 9) {
+               nowDate = "0" + nowDate;
+            }
+
+            return date.getFullYear() + separator + nowMonth + separator + nowDate;
+        }
+        
+        function getToken() {
+            var cookies = document.cookie.split(';');
+            for(var i=0; i < cookies.length; i++){
+                var _cookie = cookies[i]
+                var item = _cookie.split('=');
+                if (item[0].trim() == 'token') {
+                    return item[1]
+                }
+            }
+            return ""
+        }
+    </script>
+</body>
+</html>
