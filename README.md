@@ -1,39 +1,42 @@
-# Sample - 示例项目
-* 用来支持接口自动化/流量回放工具的采样、演练、演示
-* 本项目使用Python Flask开发而成，仅提供非常基本的功能
-* 代码粗糙，可不吝吐槽，也欢迎参与共建
+# Parrot Sample
+* This project is developed on `Python Flask` and is used to support sampling, demonstration of interface automation/traffic playback tools.
+* Currently only basic HTTP operations are provided, data is stored in running memory, will be reset after restarting the service.
+* Your issues and participates in the construction are welcome.
 
-## 用户手册
-### Step 0: 基础环境准备
-* 本项目基于python 2.7.x或3.x，请确保运行本服务的机器上已安装python及pip，推荐版本：3.7.x
-* 本项目依赖的module已写入requirements.txt中，可使用`pip install -r requirements.txt`进行安装
+## User Handbook
+### Step 0: Basic environment preparation
+* This project is based on python 2.7.x or 3.x. Please make sure that `python` and `pip` are installed on the machine running this service. Recommended version: 3.7.x
+* The dependent modules have been written in requirements.txt and can be installed using `pip install -r requirements.txt`
 
-### Step 1: 启动应用
-* 本项目默认使用8080端口，如有冲突，可自行修改app.py中的`_port_`
-* 命令行方式启动应用: `python app.py`，如需调试可在app.run中增加debug=True的参数
-* 如正常启动，屏幕可见"Running on http://0.0.0.0:8080/" 内容输出，WARNING可忽略
-* 如未正常启动，请确认Step 0和端口使用情况，再有问题可反馈Issue
+### Step 1: Boot the application
+* This project uses port 8080 by default. If there is a conflict, you can modify `_PORT_` in `app.py`.
+* Start the application in command line mode: `python app.py`, if you need to debug, add `debug=True` parameter to app.run.
+* If it starts normally, the screen will display "Running on http://0.0.0.0:8080/" content output, WARNING can be ignored.
+* If it does not start normally, please confirm Step 0 and port usage. If you have any questions, please feedback Issue.
 
-### Step 2: 操作应用
-* 可通过`ipconfig` 或 `ifconfig` 获取服务器ip，之后拼接成完整的地址，如：10.100.100.10:8080，切勿使用127.0.0.1
-* 上述地址可在浏览器窗口直接访问，正常的话会呈现页面功能块，可点击操作
-* 如需抓包，可将该地址在手机浏览器或微信窗口打开，记得设置好WiFi代理，确保Fiddler/Charles可抓取到请求
-* 如访问异常，请确保Step 1的命令行应用正常运行中，再有问题可反馈Issue
+### Step 2: Visit the application
+* The server ip can be obtained by `ipconfig` or `ifconfig` command, and then spliced ​​into a complete address, such as: `10.100.100.10:8080`, 127.0.0.1 is not recommended.
+* The above address can be directly accessed in the browser window. If it is normal, the page function module will be presented.
+* This site is not compatible with mobile styles, and the mobile display is not effective.
+* If the access is abnormal, please make sure that the application of Step 1 is running normally, and then there is a problem to feedback Issue.
 
-### 目前支持的功能
-* 均为http get/post请求，除首页外，接口响应文本均为json格式，其中包含timestamp和随机tag
-* 设置了随机的失败比例，可自行修改app.py中的exception_percent，默认为0
-* 各接口设置了随机的耗时，区间可自行修改app.py中的duration_max和duration_min
+### What the application supports now
+* Basic HTTP GET/POST requests. Except for the index page, the interface response text is in json format, including `timestamp` and random `tag`.
+* Random exception rate, longest and shortest random time-consuming ranges, can be edited online.
 
-#### 用户行为
-* 注册：POST方法
-* 注销：POST方法，header中包含token传参
-* 登录：POST方法，会生成token，体现在response header和cookie中
-* 登出：POST方法，header中包含token传参，会清除token
+#### User's Behavior
+* Register: `POST` method
+* Unregister: `POST` method, `token` is added in `headers`
+* Logon: `POST` method, `token` would be generated and set in response `headers` and `cookies`
+* Logout: `POST` method, `token` is added in `headers`, `cookies` would be cleared
 
-#### 用户的兴趣
-* 兴趣列表：GET方法，header中包含token传参
-* 兴趣详情：GET方法，header中包含token传参，传参依赖列表接口获取的name
-* 添加兴趣：POST方法，header中包含token传参
-* 删除兴趣：POST方法，header中包含token传参
-* 今日推荐：GET方法，传参包含today日期
+#### User's Hobbies
+* Hobby List: `GET` method, `token` is added in `headers`
+* Hobby Detail：`GET` method, `token` is added in `headers`, and `name` parameter should be obtained from response of `Hobby List`
+* Add a Hobby: `POST` method, `token` is added in `headers`
+* Remove a Hobby: `POST` method, `token` is added in `headers`
+* Random Suggestion: `GET` method, `token` is added in `headers`, and a `today()` parameter is added
+
+#### Suggested demo operations
+* Logon => Hobby List => Add a Hobby => Hobby List => Hobby Detail => Random Suggestion => Logout
+* You can view the corresponding interface call details in the developer tool of the browser, or you can export the HAR file.

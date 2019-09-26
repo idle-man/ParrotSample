@@ -43,7 +43,9 @@ def now_timestamp():  # e.g. 1451581261
 
 
 def now_timestamp_ms():  # e.g. 1451581261339
-    return int(round(time.time())) * 1000 + int(datetime.datetime.now().microsecond / 1000)
+    _now = datetime.datetime.now()
+    return int(time.mktime(
+        time.strptime(_now.strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S'))) * 1000 + _now.microsecond / 1000
 
 
 def hours_ago(hours=0, form='%Y-%m-%d %H:%M:%S'):
@@ -52,21 +54,6 @@ def hours_ago(hours=0, form='%Y-%m-%d %H:%M:%S'):
 
 def hours_later(hours=0, form='%Y-%m-%d %H:%M:%S'):
     return (datetime.datetime.now() + datetime.timedelta(hours=hours)).strftime(form)
-
-
-def har_time2timestamp(har_time, ms=0):
-    try:
-        _stamp = int(time.mktime(time.strptime(har_time.split('.')[0], "%Y-%m-%dT%H:%M:%S")))
-        _ms = int(har_time.split('.')[1][:2])
-    except ValueError:
-        try:
-            _stamp = int(time.mktime(time.strptime(har_time, "%a, %d %b %Y %H:%M:%S")))
-            _ms = 0
-        except ValueError:
-            print("Unsupported startedDateTime format: {}".format(har_time))
-            raise
-
-    return _stamp*1000+_ms if ms else _stamp
 
 
 """

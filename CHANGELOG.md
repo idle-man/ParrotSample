@@ -1,16 +1,27 @@
+What's new in Sample 1.1?
+===========================
+Release Date: 2019-09-26
+
+Release Feature:
+ * Add English page, Chinese and English pages can be switched back and forth
+ * Config could be edited online
+
+
 What's new in Sample 1.0?
 ===========================
 Release Date: 2019-09-17
 
 Release Feature:
- * 重构index.html和app.py，提供用户的注册、登录、兴趣增删改查等功能
+ * Rebuild `index.html` and `app.py`
+ * Supports HTTP GET and POST requests, headers and cookies, token validation, parameter dependencies, etc.
+
 
 What's new in Sample 0.2?
 ===========================
 Release Date: 2019-03-30
 
 Release Feature:
- * 增加random接口，支持常用随机类型输出
+ * Add a random interface
 
 
 What's new in Sample 0.1?
@@ -18,4 +29,4 @@ What's new in Sample 0.1?
 Release Date: 2019-03-19
 
 Release Feature:
- * 支持Simple/Complex http GET/POST请求及响应
+ * Support Simple/Complex http GET/POST requests

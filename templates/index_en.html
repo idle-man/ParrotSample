@@ -28,9 +28,10 @@
     <div class="row clearfix">
         <div class="col-md-6 column"  style="height: 200px;">
             <div>
-                <h3>示例站点 for Parrot</h3>
+                <h3>Sample application for Parrot</h3>
                 <br>
-                <p>本站点仅用于Http请求的Demo演示，数据均保存在运行内存中，重启服务则重置</p>
+                <p>This website is only used for demo of Http requests.</p>
+                <p>Data is saved in running memory, and would be reset after service restarted.</p>
             </div>
         </div>
         <div class="col-md-6 column"  style="height: 200px;">
@@ -40,20 +41,20 @@
                         <tr>
                             <td style="width: auto; text-align: center">
                                 <div>
-                                    <a href="index">Switch to English page</a>
+                                    <a href="zh_cn">切换到中文页面</a>
                                 </div>
                             </td>
                             <td style="width: auto; text-align: center">
                                 <div>
                                     <button type="button" class="btn btn-info" id="update-conf"
-                                           onclick="updateConfig(conf_rate.value, conf_max_time.value, conf_min_time.value)">更新变量
+                                           onclick="updateConfig(conf_rate.value, conf_max_time.value, conf_min_time.value)">Update Variables
                                     </button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td style="width: auto; text-align: center">
-                                <label for="_rate">异常百分比: </label>
+                                <label for="_rate">Exception Percent: </label>
                             </td>
                             <td style="width: auto; text-align: center">
                                 <input
@@ -64,7 +65,7 @@
                         </tr>
                         <tr>
                             <td style="width: auto; text-align: center">
-                                <label for="_max_time">最长耗时: </label>
+                                <label for="_max_time">Max Duration: </label>
                             </td>
                             <td style="width: auto; text-align: center">
                                 <input
@@ -75,7 +76,7 @@
                         </tr>
                         <tr>
                             <td style="width: auto; text-align: center">
-                                <label for="_min_time">最短耗时: </label>
+                                <label for="_min_time">Min Duration: </label>
                             </td>
                             <td style="width: auto; text-align: center">
                                 <input
@@ -97,75 +98,74 @@
 
     <div class="row clearfix">
         <div class="col-md-4 column" style="height: 360px;">
-            <h3>用户的行为</h3>
-            <p>默认的已注册用户为：sample / sample</p>
-            <div class="form-group"></div>
+            <h3>User's Behavior</h3>
+            <p>The default registered user is: sample / sample</p>
             <div class="tabbable" id="tabs-user">
                 <ul class="nav nav-tabs">
                     <li>
-                        <a rel="nofollow" href="#panel-register" data-toggle="tab">注册</a>
+                        <a rel="nofollow" href="#panel-register" data-toggle="tab">Register</a>
                     </li>
                     <li>
-                        <a rel="nofollow" href="#panel-unregister" data-toggle="tab">注销</a>
+                        <a rel="nofollow" href="#panel-unregister" data-toggle="tab">UnRegister</a>
                     </li>
                     <li class="active">
-                        <a rel="nofollow" href="#panel-logon" data-toggle="tab">登录</a>
+                        <a rel="nofollow" href="#panel-logon" data-toggle="tab">Logon</a>
                     </li>
                     <li>
-                        <a rel="nofollow" href="#panel-logout" data-toggle="tab">登出</a>
+                        <a rel="nofollow" href="#panel-logout" data-toggle="tab">Logout</a>
                     </li>
                 </ul>
 
-                <div class="form-group"></div>
+                <br>
 
                 <div class="tab-content">
                     <div class="tab-pane" id="panel-register">
                         <form role="form" class="nofollow" target="hiddenIframe">
                             <div class="form-group">
-                                <label for="r_inputUsername">用户名：</label>
+                                <label for="r_inputUsername">Username:</label>
                                 <input type="text" class="form-control" id="r_inputUsername" name="r_username"/>
                             </div>
                             <div class="form-group">
-                                <label for="r_inputPassword">密码：</label>
+                                <label for="r_inputPassword">Password:</label>
                                 <input type="password" class="form-control" id="r_inputPassword" name="r_password"/>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-default" id="user-register"
-                                        onclick="userRegister(r_username.value, r_password.value)">提交</button>
+                                <button type="button" class="btn btn-info" id="user-register"
+                                        onclick="userRegister(r_username.value, r_password.value)">Submit</button>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane" id="panel-unregister">
                         <form role="form" class="nofollow" target="hiddenIframe">
-                            <div class="form-group"></div>
+                            <br>
                             <div>
-                                <button type="button" class="btn btn-default" id="user-unregister"
-                                        onclick="userUnregister()">提交</button>
+                                <button type="button" class="btn btn-info" id="user-unregister"
+                                        onclick="userUnregister()">Submit</button>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane active" id="panel-logon">
                         <form role="form" class="nofollow" target="hiddenIframe">
                             <div class="form-group">
-                                <label for="l_inputUsername">用户名：</label>
+                                <label for="l_inputUsername">Username:</label>
                                 <input type="text" class="form-control" id="l_inputUsername" name="l_username" value="sample"/>
                             </div>
                             <div class="form-group">
-                                <label for="l_inputPassword">密码：</label>
+                                <label for="l_inputPassword">Password:</label>
                                 <input type="password" class="form-control" id="l_inputPassword" name="l_password" value="sample" />
                             </div>
                             <div>
-                                 <button type="button" class="btn btn-default" id="user-logon"
-                                         onclick="userLogon(l_username.value, l_password.value)">登录</button>
+                                 <button type="button" class="btn btn-info" id="user-logon"
+                                         onclick="userLogon(l_username.value, l_password.value)">Logon</button>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane" id="panel-logout">
                         <form role="form" class="nofollow" target="hiddenIframe">
-                            <div class="form-group"></div>
+                            <br>
                             <div>
-                                 <button type="button" class="btn btn-default" id="user-logout"
-                                         onclick="userLogout()">登出</button>
+                                 <button type="button" class="btn btn-info" id="user-logout"
+                                         onclick="userLogout()">Logout</button>
                             </div>
                         </form>
                     </div>
@@ -174,9 +174,8 @@
         </div>
 
         <div class="col-md-4 column" style="height: 360px;">
-            <h3>展示区域</h3>
-            <p>接口的请求和响应信息会呈现在此</p>
-            <div class="form-group"></div>
+            <h3>Display Area</h3>
+            <p>The request and response information of the interface will be presented here.</p>
             <blockquote style="overflow: auto; height: 250px">
                 <pre style="height: auto; " id="api-response">
 
@@ -186,28 +185,27 @@
         </div>
 
         <div class="col-md-4 column" style="height: 360px;">
-            <h3>用户的爱好</h3>
-            <p>操作之前，请先进行登录</p>
-            <div class="form-group"></div>
+            <h3>User's Hobbies</h3>
+            <p>Please make sure you have logged in before any operation.</p>
             <div class="tabbable" id="tabs-hobby">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a rel="nofollow" href="#panel-list" data-toggle="tab">列表</a>
+                        <a rel="nofollow" href="#panel-list" data-toggle="tab">List</a>
                     </li>
                     <li>
-                        <a rel="nofollow" href="#panel-detail" data-toggle="tab">详情</a>
+                        <a rel="nofollow" href="#panel-detail" data-toggle="tab">Detail</a>
                     </li>
                     <li>
-                        <a rel="nofollow" href="#panel-add" data-toggle="tab">添加</a>
+                        <a rel="nofollow" href="#panel-add" data-toggle="tab">Add</a>
                     </li>
                     <li>
-                        <a rel="nofollow" href="#panel-remove" data-toggle="tab">删除</a>
+                        <a rel="nofollow" href="#panel-remove" data-toggle="tab">Remove</a>
                     </li>
                     <li>
-                        <a rel="nofollow" href="#panel-suggest" data-toggle="tab">今日建议</a>
+                        <a rel="nofollow" href="#panel-suggest" data-toggle="tab">Suggest</a>
                     </li>
                 </ul>
-                <div class="form-group"></div>
+                <br>
                 <div class="tab-content">
                     <div class="tab-pane active" id="panel-list">
                         <form role="form" class="nofollow" target="hiddenIframe">
@@ -215,57 +213,57 @@
                                  <p></p>
                             </div>
                             <div>
-                                 <button type="button" class="btn btn-default" id="hobby-list"
-                                         onclick="hobbyList()">查询</button>
+                                 <button type="button" class="btn btn-info" id="hobby-list"
+                                         onclick="hobbyList()">Search</button>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane" id="panel-detail">
                         <form role="form" class="nofollow" target="hiddenIframe">
                             <div class="form-group">
-                                <label for="hobbyName0">爱好名称：</label>
+                                <label for="hobbyName0">Hobby Name:</label>
                                 <input type="text" class="form-control" id="hobbyName0" name="hobby_name0" value="reading" />
                             </div>
                             <div>
-                                 <button type="button" class="btn btn-default" id="hobby-detail"
-                                         onclick="hobbyDetail(hobby_name0.value)">查询</button>
+                                 <button type="button" class="btn btn-info" id="hobby-detail"
+                                         onclick="hobbyDetail(hobby_name0.value)">Search</button>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane" id="panel-add">
                         <form role="form" class="nofollow" target="hiddenIframe">
                             <div class="form-group">
-                                <label for="hobbyName1">爱好名称：</label>
+                                <label for="hobbyName1">Hobby Name:</label>
                                 <input type="text" class="form-control" id="hobbyName1" name="hobby_name1" value="reading"/>
                             </div>
                             <div class="form-group">
-                                <label for="hobbyFrequency1">参与频率：</label>
+                                <label for="hobbyFrequency1">Frequency:</label>
                                 <input type="text" class="form-control" id="hobbyFrequency1" name="hobby_frequency1" value="1 book per month"/>
                             </div>
                             <div>
-                                 <button type="button" class="btn btn-default" id="hobby-add"
-                                         onclick="hobbyAdd(hobby_name1.value, hobby_frequency1.value)">添加</button>
+                                 <button type="button" class="btn btn-info" id="hobby-add"
+                                         onclick="hobbyAdd(hobby_name1.value, hobby_frequency1.value)">Add</button>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane" id="panel-remove">
                         <form role="form" class="nofollow" target="hiddenIframe">
                             <div class="form-group">
-                                <label for="hobbyName2">爱好名称：</label>
+                                <label for="hobbyName2">Hobby Name:</label>
                                 <input type="text" class="form-control" id="hobbyName2" name="hobby_name2" />
                             </div>
                             <div>
-                                 <button type="button" class="btn btn-default" id="hobby-remove"
-                                         onclick="hobbyRemove(hobby_name2.value)">删除</button>
+                                 <button type="button" class="btn btn-info" id="hobby-remove"
+                                         onclick="hobbyRemove(hobby_name2.value)">Remove</button>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane" id="panel-suggest">
                         <form role="form" class="nofollow" target="hiddenIframe">
-                            <div class="form-group"></div>
+                            <br>
                             <div>
-                                 <button type="button" class="btn btn-default" id="hobby-suggest"
-                                         onclick="hobbySuggest()">试试手气</button>
+                                 <button type="button" class="btn btn-info" id="hobby-suggest"
+                                         onclick="hobbySuggest()">Give a try!</button>
                             </div>
                         </form>
                     </div>
@@ -298,7 +296,7 @@
 
         function userRegister(username, password) {
             var this_url = base_url + 'register';
-            var this_desc = "注册新用户";
+            var this_desc = "Register a new user";
             $.ajax({
                 url: this_url,
                 data: {'username': username, 'password': password},
@@ -311,7 +309,7 @@
 
         function userUnregister() {
             var this_url = base_url + 'unregister';
-            var this_desc = "注销当前登录用户";
+            var this_desc = "Unregister current user";
             $.ajax({
                 url: this_url,
                 data: {},
@@ -330,7 +328,7 @@
 
         function userLogon(username, password) {
             var this_url = base_url + 'logon';
-            var this_desc = "用户登录";
+            var this_desc = "Logon";
             $.ajax({
                 url: this_url,
                 data: {'username': username, 'password': password},
@@ -343,7 +341,7 @@
 
         function userLogout() {
             var this_url = base_url + 'logout';
-            var this_desc = "用户登出";
+            var this_desc = "Logout";
             $.ajax({
                 url: this_url,
                 data: {},
@@ -362,7 +360,7 @@
 
         function hobbyList() {
             var this_url = base_url + 'hobby_list';
-            var this_desc = "我的爱好列表";
+            var this_desc = "My Hobbies";
             $.ajax({
                 url: this_url,
                 data: {},
@@ -381,7 +379,7 @@
 
         function hobbyDetail(name) {
             var this_url = base_url + 'hobby_detail';
-            var this_desc = "我的爱好详情";
+            var this_desc = "Detail of a hobby";
             $.ajax({
                 url: this_url,
                 data: {'name': name},
@@ -400,7 +398,7 @@
 
         function hobbyAdd(name, frequency) {
             var this_url = base_url + 'hobby_add';
-            var this_desc = "添加一个爱好";
+            var this_desc = "Add a hobby";
             $.ajax({
                 url: this_url,
                 data: {'name': name, 'frequency': frequency},
@@ -419,7 +417,7 @@
 
         function hobbyRemove(name) {
             var this_url = base_url + 'hobby_remove';
-            var this_desc = "删除一个爱好";
+            var this_desc = "Remove a hobby";
             $.ajax({
                 url: this_url,
                 data: {'name': name},
@@ -438,7 +436,7 @@
 
         function hobbySuggest() {
             var this_url = base_url + 'hobby_suggest';
-            var this_desc = "今日爱好推荐";
+            var this_desc = "A random suggestion";
 
             $.ajax({
                 url: this_url,

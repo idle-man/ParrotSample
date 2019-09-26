@@ -3,6 +3,8 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import redirect
+from flask import url_for
 from flask import make_response
 import hashlib
 
@@ -11,12 +13,14 @@ from module.helper import *
 
 app = Flask(__name__)
 
-_ip_ = get_host_ip()
-_port_ = '8080'
+_IP_ = get_host_ip()
+_PORT_ = '8080'
 
-exception_percent = 0  # 0-100
-duration_max = 1000  # ms
-duration_min = 50  # ms
+CONFIG = {
+    'EXCEPTION_PERCENT': 0,  # 0-100
+    'DURATION_MAX': 1000,  # ms
+    'DURATION_MIN': 50,  # ms
+}
 
 msg_ok_default = {
     'code': 100,
@@ -46,9 +50,28 @@ users = {
 
 
 @app.route('/')
-@app.route('/sample')
+def blank():
+    return redirect(url_for('index'))
+
+
+@app.route('/index')
 def index():
-    return render_template('index.html', base_url="http://{}:{}/".format(_ip_, _port_))
+    return render_template('index_en.html',
+                           base_url="http://{}:{}/".format(_IP_, _PORT_),
+                           conf_rate=CONFIG['EXCEPTION_PERCENT'],
+                           conf_max_time=CONFIG['DURATION_MAX'],
+                           conf_min_time=CONFIG['DURATION_MIN']
+                           )
+
+
+@app.route('/zh_cn')
+def index_en():
+    return render_template('index.html',
+                           base_url="http://{}:{}/".format(_IP_, _PORT_),
+                           conf_rate=CONFIG['EXCEPTION_PERCENT'],
+                           conf_max_time=CONFIG['DURATION_MAX'],
+                           conf_min_time=CONFIG['DURATION_MIN']
+                           )
 
 
 @app.route('/hello')
@@ -109,8 +132,8 @@ def unregister():
     return rsp
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/logon', methods=['GET', 'POST'])
+def logon():
     add_timestamp(msg_ok_default)
     add_tag(msg_ok_default)
 
@@ -153,7 +176,6 @@ def logout():
     return rsp
 
 
-@app.route('/my', methods=['GET'])
 @app.route('/my_hobby', methods=['GET'])
 @app.route('/my_hobbies', methods=['GET'])
 @app.route('/hobby_list', methods=['GET'])
@@ -284,9 +306,44 @@ def hobby_suggest():
     return random_response(sug_msg)[0]
 
 
+@app.route('/update_config', methods=['GET', 'POST'])
+def update_config():
+    if request.method == 'GET':
+        _rate = request.args.get('rate')
+        _max = request.args.get('max')
+        _min = request.args.get('min')
+    else:
+        _rate = request.form.get('rate')
+        _max = request.form.get('max')
+        _min = request.form.get('min')
+
+    try:
+        _rate = int(_rate)
+        _max = int(_max)
+        _min = int(_min)
+        if _max < _min:
+            _max, _min = _min, _max
+        CONFIG['EXCEPTION_PERCENT'] = _rate
+        CONFIG['DURATION_MAX'] = _max
+        CONFIG['DURATION_MIN'] = _min
+        return make_response(
+            {
+                'code': 900,
+                'message': "OK.",
+                'config': CONFIG
+            })
+    except ValueError:
+        return make_response(
+            {
+                'code': 901,
+                'message': "Invalid input. No change.",
+                'config': CONFIG
+            })
+
+
 def random_response(ok_msg=msg_ok_default):
-    time.sleep(random.randint(duration_min, duration_max)*1.0/1000)
-    if int(exception_percent) >= random.randint(1, 100):
+    time.sleep(random.randint(CONFIG['DURATION_MIN'], CONFIG['DURATION_MAX'])*1.0/1000)
+    if int(CONFIG['EXCEPTION_PERCENT']) >= random.randint(1, 100):
         rsp = make_response(msg_error_default)
         rsp._status = "500 Internal Server Error"
         return rsp, False
@@ -335,4 +392,4 @@ def add_tag(msg):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=_port_)
+    app.run(host='0.0.0.0', port=_PORT_, debug=True)
