@@ -5,7 +5,7 @@
 
 ## User Handbook
 ### Step 0: Basic environment preparation
-* This project is based on python 2.7.x or 3.x. Please make sure that `python` and `pip` are installed on the machine running this service. Recommended version: 3.7.x
+* This project is based on python 3, recommended version: 3.7.x. Please make sure that `python` and `pip` are installed on the machine running this service.
 * The dependent modules have been written in requirements.txt and can be installed using `pip install -r requirements.txt`
 
 ### Step 1: Boot the application
@@ -20,6 +20,7 @@
 * This site is not compatible with mobile styles, and the mobile display is not effective.
 * If the access is abnormal, please make sure that the application of Step 1 is running normally, and then there is a problem to feedback Issue.
 
+![](static/sample.jpg)
 ### What the application supports now
 * Basic HTTP GET/POST requests. Except for the index page, the interface response text is in json format, including `timestamp` and random `tag`.
 * Random exception rate, longest and shortest random time-consuming ranges, can be edited online.

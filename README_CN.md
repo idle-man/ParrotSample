@@ -5,7 +5,7 @@
 
 ## 用户手册
 ### Step 0: 基础环境准备
-* 本项目基于python 2.7.x或3.x，请确保运行本服务的机器上已安装python及pip，推荐版本：3.7.x
+* 本项目基于python 3，推荐版本：3.7.x，请确保运行本服务的机器上已安装python及pip
 * 本项目依赖的module已写入requirements.txt中，可使用`pip install -r requirements.txt`进行安装
 
 ### Step 1: 启动应用
@@ -20,6 +20,7 @@
 * 本站点未兼容移动端样式，移动端显示效果不佳
 * 如访问异常，请确保Step 1的命令行应用正常运行中，再有问题可反馈Issue
 
+![](static/sample_cn.jpg)
 ### 目前支持的功能
 * 均为http get/post请求，除首页外，接口响应文本均为json格式，其中包含timestamp和随机tag
 * 支持随机的接口异常比例、最长和最短随机耗时范围的在线设置
