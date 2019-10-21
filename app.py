@@ -7,6 +7,7 @@ from flask import redirect
 from flask import url_for
 from flask import make_response
 import hashlib
+from urllib import parse
 
 from module.helper import *
 
@@ -236,6 +237,9 @@ def hobby_add():
         return random_response(
             {'code': 311, 'message': "Invalid input, 'name' and 'frequency' arguments are needed."}
         )[0]
+
+    name = parse.unquote(name)
+    frequency = parse.unquote(frequency)
 
     for hobby in users[username]['hobbies']:
         if name == hobby['name']:

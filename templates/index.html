@@ -404,7 +404,7 @@
             var this_desc = "添加一个爱好";
             $.ajax({
                 url: this_url,
-                data: {'name': name, 'frequency': frequency},
+                data: {'name': encodeURI(name), 'frequency': encodeURI(frequency)},
                 type: 'POST',
                 beforeSend: function(XMLHTTPRequest){
                     XMLHTTPRequest.setRequestHeader("token", getToken());

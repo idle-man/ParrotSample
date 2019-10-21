@@ -402,7 +402,7 @@
             var this_desc = "Add a hobby";
             $.ajax({
                 url: this_url,
-                data: {'name': name, 'frequency': frequency},
+                data: {'name': encodeURI(name), 'frequency': encodeURI(frequency)},
                 type: 'POST',
                 beforeSend: function(XMLHTTPRequest){
                     XMLHTTPRequest.setRequestHeader("token", getToken());
