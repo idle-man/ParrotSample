@@ -1,43 +1,129 @@
 # Parrot Sample
-* This project is developed on `Python Flask` and is used to support sampling, demonstration of interface automation/traffic playback tools.
-* Currently only basic HTTP operations are provided, data is stored in running memory, will be reset after restarting the service.
-* Your issues and participates in the construction are welcome.
+**This project is mainly used for sampling and demonstration of interface automation.**
 
-## User Handbook
+* Currently it only provides HTTP interface operations, including GET and POST methods, involving headers and cookies operations.
+* To be lightweight, all data is stored in the running memory and will be reset after restarting the service.
+* Code repository: <https://github.com/idle-man/ParrotSample>, welcome your code and issues.
+
+## Deployment
 ### Step 0: Basic environment preparation
-* This project is based on python 3, recommended version: 3.7.x. Please make sure that `python` and `pip` are installed on the machine running this service.
-* The dependent modules have been written in requirements.txt and can be installed using `pip install -r requirements.txt`
+* Use the `git clone` or `Download ZIP` method to pull the project source code to the machine to be deployed.
+* This project is based on python 3, the recommended version is  3.7.x, please ensure that `python` and `pip` are installed on the machine running this service.
+* The modules that this project depends on have been written in requirements.txt and can be installed using `pip install -r requirements.txt`.
 
-### Step 1: Boot the application
-* This project uses port 8080 by default. If there is a conflict, you can modify `_PORT_` in `app.py`.
-* Start the application in command line mode: `python app.py`, if you need to debug, add `debug=True` parameter to app.run.
-* If it starts normally, the screen will display "Running on http://0.0.0.0:8080/" content output, WARNING can be ignored.
-* If it does not start normally, please confirm Step 0 and port usage. If you have any questions, please feedback Issue.
+### Step 1: Launch the application
+This project starts by command line: `python app.py`
+
+* Port 8080 is used as default. If there is a conflict, you can modify the `_PORT_` value in app.py.
+* For debugging, add the parameter `debug=True` in `app.run`.
+* To run in the background, you can start it using `python app.py &`.
+
+If it starts normally, you could see `http://0.0.0.0:8080/` on the screen output.
+
+Otherwise, please confirm Step 0 and port usage. If you have any questions, please feedback an issue.
 
 ### Step 2: Visit the application
+This project is mainly accessed through a browser.
+
 * The server ip can be obtained by `ipconfig` or `ifconfig` command, and then spliced ​​into a complete address, such as: `10.100.100.10:8080`, 127.0.0.1 is not recommended.
 * The above address can be directly accessed in the browser window. If it is normal, the page function module will be presented.
 * This site is not compatible with mobile styles, and the mobile display is not effective.
-* If the access is abnormal, please make sure that the application of Step 1 is running normally, and then there is a problem to feedback Issue.
 
+If the access is abnormal, please make sure that the application of Step 1 is running normally, and then there is a problem to feedback an issue.
+
+## Functional operations
+**Page View Example:**
 ![](static/sample.jpg)
-### What the application supports now
-* Basic HTTP GET/POST requests. Except for the index page, the interface response text is in json format, including `timestamp` and random `tag`.
-* Random exception rate, longest and shortest random time-consuming ranges, can be edited online.
+**General functions**
 
-#### User's Behavior
-* Register: `POST` method
-* Unregister: `POST` method, `token` is added in `headers`
-* Logon: `POST` method, `token` would be generated and set in response `headers` and `cookies`
-* Logout: `POST` method, `token` is added in `headers`, `cookies` would be cleared
+* Interface requests are in HTTP GET and POST methods, and the response text is in json format.
+* The headers and cookies of each request contain the token of the current login state.
+* The response information of each request contains the current `timestamp` and randomly generated `tag`.
 
-#### User's Hobbies
-* Hobby List: `GET` method, `token` is added in `headers`
-* Hobby Detail：`GET` method, `token` is added in `headers`, and `name` parameter should be obtained from response of `Hobby List`
-* Add a Hobby: `POST` method, `token` is added in `headers`
-* Remove a Hobby: `POST` method, `token` is added in `headers`
-* Random Suggestion: `GET` method, `token` is added in `headers`, and a `today()` parameter is added
+***
+### Configuration Area
+**Function 1: Chinese and English page switching**
 
-#### Suggested demo operations
-* Logon => Hobby List => Add a Hobby => Hobby List => Hobby Detail => Random Suggestion => Logout
-* You can view the corresponding interface call details in the developer tool of the browser, or you can export the HAR file.
+**Function 2: Running configuration changes**
+
+* **Exception Percent**: Random exception ratio for all requests, default is 0
+* **Max/Min Duration**: Time-consuming random intervals for all requests in ms(micro-second)
+* The variables are stored in the running memory. After the above configuration is updated, it will take effect immediately and will be reset after application restart.
+
+***
+### Display Area
+Request and response information for all requests are presented in this area for intuitive view.
+
+* For more detailed information, it is recommended to use the browser developer tool(F12) to view on the `Network` channel.
+
+***
+### User's Behaviors
+This project provides a sample/sample account by default.
+
+**Register**
+
+* POST method
+* The newly registered user information will be saved in the running memory and will be cleared after restarting the application.
+
+**UnRegister**
+
+* POST method
+* Need user to operate in login state
+* The current user will be logged out and the cookie will be cleared, also cleared from the running memory, and will be reset after restart.
+
+**Logon**
+
+* POST method
+* A random `token` will be generated, which is reflected in the response header and the cookie. It's the value of `token` in the headers of other requests.
+
+**Logout**
+
+* POST method
+* The current user will be logged out and the cookie will be cleared. The original `token` will be invalid.
+
+***
+### User's Hobbies
+**List**
+
+* GET method
+* Need user to operate in login state
+* The sample user has two default hobbies, which can be added, removed, and will be reset after restart.
+
+**Detail**
+
+* GET method
+* Need user to operate in login state
+* The `name` in the parameters needs to be a valid value in the hobby `list`.
+
+**Add**
+
+* POST method
+* Need user to operate in login state
+* The new hobby is also stored in the running memory and will be reset after restart.
+
+**Remove**
+
+* POST method
+* Need user to operate in login state
+* If the sample user's default hobby is deleted, it can be reset after the application is restarted.
+
+**Suggest**
+
+* GET method
+* Need user to operate in login state
+* The parameter includes the `today` date, and the recommended hobby is a random selection.
+
+## Demo Suggestion
+**Recommended functions operating link:**
+
+Logon => Hobby List => Add a Hobby => Hobby List => Hobby Detail => Hobby Suggestion => Logout
+
+The developer tool (F12) of the browser can be opened in advance, the corresponding request call list can be viewed in the `Network` channel, and the **HAR** file can also be exported using `Save all as HAR with content`.
+
+> HAR (HTTP Archive Resource) is a common standardized format for storing HTTP requests and responses.
+> 
+> Its versatility: can be exported in consistent format, in Charles, Fiddler, Chrome, etc.
+> 
+> Its standardization: JSON format and UTF-8 coding.
+
+
