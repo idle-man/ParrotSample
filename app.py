@@ -238,8 +238,8 @@ def hobby_add():
             {'code': 311, 'message': "Invalid input, 'name' and 'frequency' arguments are needed."}
         )[0]
 
-    name = parse.unquote(name)
-    frequency = parse.unquote(frequency)
+    name = parse.unquote(parse.unquote(name))
+    frequency = parse.unquote(parse.unquote(frequency))
 
     for hobby in users[username]['hobbies']:
         if name == hobby['name']:
